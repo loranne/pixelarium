@@ -1,7 +1,7 @@
 # Models for image repo for shopify internship application
 # pixelarium
 
-from flax_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime

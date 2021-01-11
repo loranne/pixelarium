@@ -2,10 +2,19 @@
 <!doctype html>
 <html>
     <head>
-    </head>
-    <body>
-        {% block body %}
+        {% block head %}
+        <!-- cloudinary script -->
+        <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+
+        <!-- jquery script -->
+        <script
+        src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous"></script>
         <title>{% block title %}{% endblock %}</title>
         {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
     </body>
 </html>
