@@ -1,0 +1,11 @@
+<!-- base template for others to inherit -->
+<!doctype html>
+<html>
+    <head>
+    </head>
+    <body>
+        {% block body %}
+        <title>{% block title %}{% endblock %}</title>
+        {% endblock %}
+    </body>
+</html>
