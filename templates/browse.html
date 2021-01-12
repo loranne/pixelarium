@@ -1,0 +1,57 @@
+<!-- page for browsing uploaded images -->
+{% extends 'base.html' %}
+{% block title %}Pixelarium - Browse{% endblock %}
+
+{% block body %}
+<h1>Browse Pixelarium</h1>
+
+<div>
+    <!-- cloudinary script -->
+    <script src="https://product-gallery.cloudinary.com/all.js" type="text/javascript">  
+    </script>
+
+    <script src="https://media-library.cloudinary.com/global/all.js"></script>
+    </div>
+
+        <div id="ml-container" style="height: 800;">
+        <script>  
+            // const mloptions = {
+            //     cloud_name: 'pixelarium',
+            //     api_key: 'API_KEY',
+            //     username: 'loranne.n@gmail.com',
+            //     button_class: 'myBtn',
+            //     button_caption: 'Insert Images',
+            //     inline_container: '#ml-container',
+            //     default_transformations: [
+            //         [{quality: "auto"},{fetch_format: "auto"}],
+            //         [{width: 80, height: 80, crop: "fill", gravity: "auto", radius: "max"}, {fetch_format: "auto", quality: "auto"}]
+            // ],    
+            // };
+
+            window.ml = cloudinary.openMediaLibrary({
+                cloud_name: 'pixelarium',
+                api_key: '177269222456496',
+                username: 'loranne.n@gmail.com',
+                inline_container: '#ml-container',
+                remove_header: true,
+                // multiple: true,
+                // max_files: 8,
+                }, {
+                    insertHandler: function (data) {
+                        data.assets.forEach(asset => { console.log("Inserted asset:", 
+                        JSON.stringify(asset, null, 2)) })
+                    }
+                    }
+                );
+        </script>
+        <style>
+            iframe{
+                position: absolute;
+                height: 800px;
+                width: 100%;
+                border: none;
+            }
+        </style>
+        </div>
+</div>
+{% endblock %}

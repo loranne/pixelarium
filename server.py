@@ -40,6 +40,12 @@ def upload_img():
 
     return render_template("upload.html")
 
+@app.route("/browse")
+def browse_img():
+    """User can browse images"""
+
+    return render_template("browse.html")
+
 
 
 ########################## RUN IT ###########################
