@@ -19,6 +19,8 @@ class Image(db.Model):
     img_id = db.Column(db.Integer, 
                         autoincrement=True,
                         primary_key=True)
+    link = db.Column(db.String,
+                        nullable=False)
     title = db.Column(db.String(50),
                         nullable=False)
     desc = db.Column(db.Text,
@@ -27,6 +29,10 @@ class Image(db.Model):
                         nullable=False)
     created_date = db.Column(db.DateTime)
     device = db.Column(db.Text,
+                        nullable=True)
+    # TODO: how are we getting the info into this? Is this the right data type?
+    # will find out
+    histogram = db.Column(db.String,
                         nullable=True)
 
     # sets up many-to-many relationship with tags
@@ -73,7 +79,7 @@ class ImageTag(db.Model):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
 
-def connect_to_db(flask_app, db_uri="postgresql:///ptremix", echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
     """Connect to the DB"""
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
