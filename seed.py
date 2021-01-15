@@ -28,58 +28,61 @@ def get_images_data():
     url = "https://API_KEY:SECRET_API_KEY@api.cloudinary.com/v1_1/pixelarium/resources/image"
 
     # response = requests.get(url, params=payload)
-    response = cloudinary.api.resources(tags = True,
-                                        max_results = 500,
-                                        metadata = True)
+    images_dict = cloudinary.api.resources(tags=True,
+                                        max_results=500,
+                                        metadata=True)
 
-    images_dict = json.loads(response)
+    # do not need to dictionary-ify it because it already behaves like a python dict
 
     return images_dict
 
 ################### CREATE RECORDS ###########################
 
-def create_image(images_dict):
-    """Create image record"""
+def create_images(dict):
+    """Create image records from cloudinary Admin API"""
 
-    for image in images_dict:
-        new_img = Image(link=secure_url, title=public_id)
+    # iterate through lists in resources
+    for image in dict["resources"]:
+        # pulls secure_url and public_id from API call
+        new_img = Image(link=image["secure_url"], title=image["public_id"])
+        # add each time through loop
         db.session.add(new_img)
 
+    # commit all at once
     db.session.commit()
 
+def create_tags_and_relationships(dict):
+    """Create tag records and relationships to images"""
 
-def create_tag(images_dict):
-    """Create tag record"""
+    # iterates through all resources
+    for image in dict["resources"]:
 
-    #TODO: figure out how I'm grabbing the img_id...
-    for image in images_dict:
-
-        this_img = Image.query.filter_by(title=public_id)
+        # gets record object for image from db
+        # needed for image_tags
+        current_img = Image.query.filter_by(title=image["public_id"]).first()
         
-        for tag in images_dict["tags"]:
-            print(tag)
-            new_tag = Tag(text=tag)
-            print(new_tag)
-            db.session.add(new_tag)
-            db.session.commit()
+        # iterates through tags by image
+        for tag in image["tags"]:
+            # query to find out if tag is already in db
+            current_tag = Tag.query.filter_by(text=tag).first()
+            # if it's not, create & commit it!
+            if current_tag is None:
+                new_tag = Tag(text=tag)
+                db.session.add(new_tag)
+                # have to commit here instead of at end because we need these
+                # records for the rest of the function
+                db.session.commit()
 
+            # now we have to set up the relationship
+            # query gets the record for the just added tag
+            added_tag = Tag.query.filter_by(text=tag).first()
 
-            this_tag = Tag.query.filter_by(text=new_tag.text)
-            print(this_tag)
-
-            new_img_tag = ImageTag(img_id=this_img.img_id, tag_id=this_tag.tag_id)
-            print(new_img_tag)
+            # uses tag id from just added tag, and img id from current image
+            # which is determined by outer loop
+            new_img_tag = ImageTag(img_id=current_img.img_id, tag_id=added_tag.tag_id)
+            # add & commit to db
             db.session.add(new_img_tag)
             db.session.commit() 
-        
-def create_image_tag_relationship():
-    """Create record in image_tags - relationship between tag and image"""
-
-    img_tag = ImageTag(img_id=, tag_id=)
-    db.session.add(img_tag)
-    db.session.commit()
-
-def 
 
 ################### CALLING FUNCTIONS #########################
 # call functions to create data

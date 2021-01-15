@@ -3,13 +3,12 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-import random
-import os
 # uncomment line below for running interactively
 # import crud
+# comment out cloudinary and os stuff below before completing
 import cloudinary.api
+import os
+import json
 
 # copied from server for testing only
 API_KEY = os.environ.get("API_KEY")
@@ -45,7 +44,7 @@ class Image(db.Model):
     tags = db.relationship("Tag", secondary="image_tags")
 
     def __repr__(self):
-        return f"<Image id={self.img_id} title={self.title} upload date={self.upload_date}>"
+        return f"<Image id={self.img_id} title={self.title}"
 
 
 class Tag(db.Model):
@@ -59,7 +58,7 @@ class Tag(db.Model):
     text = db.Column(db.String(50),
                         nullable=False)
 
-    images = db.relationship("Image", secondary="images")                    
+    images = db.relationship("Image", secondary="image_tags")                    
 
     def __repr__(self):
         return f"<Tag id={self.tag_id} text={self.text}>"
@@ -97,6 +96,17 @@ def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 
     print('Connected to the db!')
 
+
+########################## TESTING FUNCTIONS ##########################
+def create_image(images_dict):
+    """Create image record"""
+
+    for image in images_dict["resources"]:
+        new_img = Image(link=image["secure_url"], title=image["public_id"])
+        db.session.add(new_img)
+
+    db.session.commit()
+
 # for running model interactively and testing db
 if __name__ == '__main__':
     from server import app
@@ -107,4 +117,10 @@ if __name__ == '__main__':
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
 
+    # comment out later
+    os.system('dropdb pixelarium')
+    os.system('createdb pixelarium')
+
     connect_to_db(app, echo=False)
+    db.create_all()
+    
