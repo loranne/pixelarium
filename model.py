@@ -6,8 +6,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import random
+import os
 # uncomment line below for running interactively
 # import crud
+import cloudinary.api
+
+# copied from server for testing only
+API_KEY = os.environ.get("API_KEY")
+SECRET_API_KEY = os.environ.get("SECRET_API_KEY")
+
+cloudinary.config(
+  cloud_name="pixelarium",
+  api_key=API_KEY,
+  api_secret=SECRET_API_KEY
+)
+
 
 db = SQLAlchemy()
 
@@ -23,13 +36,6 @@ class Image(db.Model):
                         nullable=False)
     title = db.Column(db.String(50),
                         nullable=False)
-    desc = db.Column(db.Text,
-                        nullable=True)
-    upload_date = db.Column(db.DateTime,
-                        nullable=False)
-    created_date = db.Column(db.DateTime)
-    device = db.Column(db.Text,
-                        nullable=True)
     # TODO: how are we getting the info into this? Is this the right data type?
     # will find out
     histogram = db.Column(db.String,
@@ -95,7 +101,7 @@ def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 if __name__ == '__main__':
     from server import app
     # pulls in seed data
-    import seed
+    # import seed
 
     # Call connect_to_db(app, echo=False) if your program output gets
     # too annoying; this will tell SQLAlchemy not to print out every

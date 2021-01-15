@@ -59,9 +59,8 @@ def show_all_images():
     # url = f"https://{API_KEY}:{SECRET_API_KEY}@api.cloudinary.com/v1_1/pixelarium/resources/image"
 
     # response = requests.get(url, params=payload)
-    response = cloudinary.api.resources(tags = True)
-    
-    print(response)
+    response = cloudinary.api.resources(tags = True,
+                                        max_results = 500)
 
     return response
 
