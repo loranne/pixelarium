@@ -47,9 +47,7 @@ def create_images(dict):
         new_img = Image(link=image["secure_url"], title=image["public_id"])
         # add each time through loop
         db.session.add(new_img)
-
-    # commit all at once
-    db.session.commit()
+        db.session.commit()
 
 def create_tags_and_relationships(dict):
     """Create tag records and relationships to images"""
