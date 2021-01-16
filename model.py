@@ -117,8 +117,8 @@ if __name__ == '__main__':
     # query it executes.
 
     # comment out later
-    os.system('dropdb pixelarium')
-    os.system('createdb pixelarium')
+    # os.system('dropdb pixelarium')
+    # os.system('createdb pixelarium')
 
     connect_to_db(app, echo=False)
     db.create_all()
