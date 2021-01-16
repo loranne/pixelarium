@@ -104,8 +104,7 @@ def create_image(images_dict):
     for image in images_dict["resources"]:
         new_img = Image(link=image["secure_url"], title=image["public_id"])
         db.session.add(new_img)
-
-    db.session.commit()
+        db.session.commit() 
 
 # for running model interactively and testing db
 if __name__ == '__main__':
