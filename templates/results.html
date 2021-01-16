@@ -2,8 +2,16 @@
 {% block title %}Pixelarium - Search results{% endblock %}
 
 {% block body %}
-<h1>Your search - </h1>
+<h1>Your search - "{{ search_terms }}"</h1>
 
-<div>
+<div class="results">
+    {% for image in search_results %}
+        <ul>
+            <li><img src="{{ image.link }}" alt="Responsive image" width=50%></li>
+            {% for tag in image.tags %}
+                {{ tag.text }},
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </div>
 {% endblock %}

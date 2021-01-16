@@ -5,8 +5,7 @@ from flask import (Flask, render_template, request, flash, session,
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Image, Tag, ImageTag
 import os
-# crud doesn't exist yet. not sure I'll need it
-# import crud
+import crud
 import secrets
 from datetime import datetime
 from jinja2 import StrictUndefined
@@ -30,8 +29,8 @@ cloudinary.config(
   api_secret=SECRET_API_KEY
 )
 
-@app.route("/")
-def display_homepage():
+@app.route("/", methods=["GET", "POST"])
+def homepage():
     """View homepage"""
     utilities.print_color("Homepage is go!")
 
@@ -45,11 +44,14 @@ def upload_img():
     return render_template("upload.html")
 
 
-@app.route("/results")
-def display_search_results():
+@app.route("/results", methods=["POST"])
+def search_results():
     """Search results"""
+    search_terms = request.form.get("search")
 
-    return render_template("results.html")
+    search_results = crud.search_images(search_terms)
+
+    return render_template("results.html", search_results=search_results, search_terms=search_terms)
 
 @app.route("/images_test")
 def show_all_images():

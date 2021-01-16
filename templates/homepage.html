@@ -13,10 +13,10 @@
     </ul>
 </div>
 <div>
-    <form name="search-bar" method="POST">
+    <form name="search-bar" method="POST" action="/results">
         <label>Search terms:</label>
-        <input type="text">
-        <button>Search now</button>
+        <input type="text" placeholder="Search images by tag or title" name="search">
+        <button type="submit">Search now</button>
     </form>
 </div>
 {% endblock %}

@@ -1,53 +1,61 @@
 # CRUD functions for pixelarium
-def process_search(str):
-    """Takes in user input string and returns search results"""
 
-    # checks to see if user typed ":" in search string
-    if ":" in str:
-        # if so, splits string into list based on that character
-        search_list = str.split(":")
-        keyword = search_list[0].lower()
+import utilities
+from model import connect_to_db, db, Image, Tag, ImageTag
+
+# def process_search(str):
+#     """Takes in user input string and returns search results"""
+
+#     # checks to see if user typed ":" in search string
+#     if ":" in str:
+#         # if so, splits string into list based on that character
+#         search_list = str.split(":")
+#         keyword = search_list[0].lower()
     
 
-def search_images(str):
+def search_images(input_string):
     """Takes in user input search string and processes it to be passed into subsequent
     search functions"""
 
-    search_string = str.lower()
+    utilities.print_color(input_string)
+
+    search_string = input_string.lower().strip()
 
     if ":" in search_string:
         search_keyword_list = search_string.split(":")
         keyword = search_keyword_list[0]
-        terms = search_keyword_list[1]
+        utilities.print_color(keyword)
+        terms = search_keyword_list[1].strip()
+        utilities.print_color(terms)
     
-    if keyword:
-        if keyword == "tag":
-            search_results = search_by_tag(terms)
-            return search_results
-        
-        elif keyword == "title":
-            search_results = search_by_title(terms)
-            return search_results
-        
-        else:
-            tag_results = search_by_tag(terms)
-            title_results = search_by_title(terms)
-            search_results = tag_results + title_results
-            return search_results
+        if keyword:
+            if keyword == "tag":
+                search_results = search_by_tag(terms)
+                return search_results
+            
+            elif keyword == "title":
+                search_results = search_by_title(terms)
+                return search_results
+            
+            else:
+                tag_results = search_by_tag(terms)
+                title_results = search_by_title(terms)
+                search_results = tag_results + title_results
+                return search_results
 
     else:
         tag_results = search_by_tag(search_string)
         title_results = search_by_title(search_string)
-        search_results = tag_results + title_results
+        search_results = tag_results | title_results
         return search_results
         
 
-def search_by_tag(str):
+def search_by_tag(input_string):
     """Takes in user input search string and compares against tags. Returns set
     of results"""
 
     # search string if str = "cat" is now "%cat%"
-    search_string = f"%{str}%"
+    search_string = f"%{input_string}%"
 
     tag_search_results = []
 
@@ -66,11 +74,11 @@ def search_by_tag(str):
     
     return tag_search_results
 
-def search_by_title(str):
+def search_by_title(input_string):
     """Takes in user input search string and returns set of images that match
     works a lot like search_by_tag"""
 
-    search_string = f"%{str}%"
+    search_string = f"%{input_string}%"
 
     title_search_results = []
 
