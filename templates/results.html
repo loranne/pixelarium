@@ -5,13 +5,18 @@
 <h1>Your search - "{{ search_terms }}"</h1>
 
 <div class="results">
-    {% for image in search_results %}
+    {% if not search_results %}
+        <p>No results. <a href="/">Search again?</a></p>
+    {% else %}
+        <p><a href="/">New search?</a></p>
+        {% for image in search_results %}
         <ul>
             <li><img src="{{ image.link }}" alt="Responsive image" width=50%></li>
             {% for tag in image.tags %}
                 {{ tag.text }},
             {% endfor %}
         </ul>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

@@ -19,6 +19,14 @@ def search_images(input_string):
 
     utilities.print_color(input_string)
 
+    # checks for " in search string, indicating user wants exact matches only
+    # returns call of exact search function. this happens before calling lower 
+    # on input string, because in exact matching, capital letters matter
+    if '"' in input_string:
+        search_string = input_string.strip('"')
+        return search_exact_match(search_string)
+
+    
     search_string = input_string.lower().strip()
 
     if ":" in search_string:
@@ -90,6 +98,28 @@ def search_by_title(input_string):
     title_search_results = set(title_search_results)
 
     return title_search_results
+
+def search_exact_match(input_string):
+    """Searches only for exact matches in tags and titles"""
+
+    search_results = []
+
+    exact_tag_matches = Tag.query.filter(Tag.text==input_string).all()
+
+    for tag in exact_tag_matches:
+        for image in tag.images:
+            search_results.append(image)
+    
+    exact_title_matches = Image.query.filter(Image.title==input_string).all()
+
+    for image in exact_title_matches:
+        search_results.append(image)
+    
+    exact_search_results = set(search_results)
+
+    return exact_search_results
+        
+
 
 # def search_by_string(str):
 #     """Takes in user input search string and returns set of images that match"""
