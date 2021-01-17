@@ -104,9 +104,16 @@ def show_all_images():
     return render_template("browse.html", images=images)
 
 
+utilities.log_color("Runit happened!")
+import seed
+seed.populate_database(app)
+app.run(debug=False, host='0.0.0.0')
+
+
 ########################## RUN IT ###########################
-if __name__ == '__main__':
-    utilities.log_color("Runit happened!")
-    import seed
-    seed.populate_database(app)
-    app.run(debug=False, host='0.0.0.0')
+# uncomment below for running locally
+# if __name__ == '__main__':
+#     utilities.log_color("Runit happened!")
+#     import seed
+#     seed.populate_database(app)
+#     app.run(debug=False, host='0.0.0.0')
