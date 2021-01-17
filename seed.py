@@ -14,17 +14,14 @@ import os
 import utilities
 
 # always drop then create
+# starts up database from scratch
+os.system('dropdb pixelarium')
+os.system('createdb pixelarium')
 
-def initialize_db():
-    """starts up database from scratch"""
-    os.system('dropdb pixelarium')
-    os.system('createdb pixelarium')
+# connect to the database and set up models with db.create_all
+connect_to_db(server.app)
+db.create_all()
 
-    # connect to the database and set up models with db.create_all
-    connect_to_db(server.app)
-    db.create_all()
-
-initialize_db()
 
 ######################### API CALLS ############################
 
@@ -91,6 +88,6 @@ def create_tags_and_relationships(dict):
 
 ################### CALLING FUNCTIONS #########################
 # call functions to create data
-# create_image()
-# create_tag()
-# create_image_tag_relationship()
+images_dict = get_images_data()
+create_images(images_dict)
+create_tags_and_relationships(images_dict)

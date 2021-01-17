@@ -6,7 +6,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Image, Tag, ImageTag
 import os
 import crud
-import seed
 import secrets
 from datetime import datetime
 from jinja2 import StrictUndefined
@@ -49,6 +48,9 @@ def upload_page():
         
         crud.create_image_from_upload(img_title, img_url)
 
+        # crud.add_tags_from_upload(img_url, img_title, img_tags)
+        # never got the above function working properly
+
         current_img = Image.query.filter_by(title=img_title).first()
 
         for tag in img_tags:
@@ -64,8 +66,6 @@ def upload_page():
             new_img_tag = ImageTag(img_id=current_img.img_id, tag_id=added_tag.tag_id)
             db.session.add(new_img_tag)
             db.session.commit()
-
-        # return render_template("upload.html")
 
     return render_template("upload.html")
 

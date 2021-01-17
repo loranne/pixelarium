@@ -98,13 +98,13 @@ def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 
 
 ########################## TESTING FUNCTIONS ##########################
-def create_images(images_dict):
-    """Create image record"""
+# def create_images(images_dict):
+#     """Create image record"""
 
-    for image in images_dict["resources"]:
-        new_img = Image(link=image["secure_url"], title=image["public_id"])
-        db.session.add(new_img)
-        db.session.commit() 
+#     for image in images_dict["resources"]:
+#         new_img = Image(link=image["secure_url"], title=image["public_id"])
+#         db.session.add(new_img)
+#         db.session.commit() 
 
 # for running model interactively and testing db
 if __name__ == '__main__':
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # pulls in seed data
     # import seed
 
-    # Call connect_to_db(app, echo=False) if your program output gets
+    # Call connect_to_db(app, echo=False) if program output gets
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
 

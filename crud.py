@@ -11,6 +11,26 @@ def create_image_from_upload(title, link):
     new_image = Image(title=title, link=link)
     db.session.add(new_image)
     db.session.commit()
+
+# below function didn't work
+# def add_tags_from_upload(img_url, img_title, img_tags):
+#     """Adds new tags and image_tag relationships to DB from new upload"""
+
+#     current_img = Image.query.filter_by(title=img_title).first()
+
+#     for tag in img_tags:
+#         current_tag = Tag.query.filter_by(text=tag).first()
+
+#         if current_tag is None:
+#             new_tag = Tag(text=tag)
+#             db.session.add(new_tag)
+#             db.session.commit()
+
+#         added_tag = Tag.query.filter_by(text=tag).first()
+
+#         new_img_tag = ImageTag(img_id=current_img.img_id, tag_id=added_tag.tag_id)
+#         db.session.add(new_img_tag)
+#         db.session.commit()
     
 
 def search_images(input_string):
@@ -36,20 +56,19 @@ def search_images(input_string):
         terms = search_keyword_list[1].strip()
         utilities.print_color(terms)
     
-        if keyword:
-            if keyword == "tag":
-                search_results = tag_search(terms)
-                return search_results
-            
-            elif keyword == "title":
-                search_results = title_search(terms)
-                return search_results
-            
-            else:
-                tag_results = tag_search(terms)
-                title_results = title_search(terms)
-                search_results = tag_results | title_results
-                return search_results
+        if keyword == "tag":
+            search_results = tag_search(terms)
+            return search_results
+        
+        elif keyword == "title":
+            search_results = title_search(terms)
+            return search_results
+        
+        else:
+            tag_results = tag_search(terms)
+            title_results = title_search(terms)
+            search_results = tag_results | title_results
+            return search_results
 
     else:
         tag_results = fuzzy_tag_search(search_string)
@@ -78,8 +97,6 @@ def tag_search(input_string):
             tag_search_results.append(image)
     
     # eliminates any duplicates for only unique results
-    # tag_search_results = set(tag_search_results)
-    
     return set(tag_search_results)
         
 
@@ -95,8 +112,6 @@ def title_search(input_string):
 
     for image in search_image_titles:
         title_search_results.append(image)
-    
-    # title_search_results = set(title_search_results)
 
     return set(title_search_results)
 
@@ -160,7 +175,6 @@ def fuzzy_title_search(input_string):
     return set(fuzzy_title_results)
 
 
-
 def search_exact_match(input_string):
     """Searches only for exact matches in tags and titles"""
 
@@ -176,7 +190,5 @@ def search_exact_match(input_string):
 
     for image in exact_title_matches:
         search_results.append(image)
-    
-    # exact_search_results = set(search_results)
 
     return set(exact_search_results)
