@@ -16,7 +16,7 @@ import cloudinary.api
 
 app = Flask(__name__)
 app.secret_key = "FLASK_SECRET_KEY"
-app.debug = True
+app.debug = False
 toolbar = DebugToolbarExtension(app)
 app.jinja_env.undefined = StrictUndefined
 
@@ -87,12 +87,8 @@ def search_results():
 
 @app.route("/images_test")
 def show_all_image_data():
-    """"Shows all images from my account"""
-    print(f"\n {API_KEY} \n?")
+    """"Shows all images dict data"""
 
-    # url = f"https://{API_KEY}:{SECRET_API_KEY}@api.cloudinary.com/v1_1/pixelarium/resources/image"
-
-    # response = requests.get(url, params=payload)
     response = cloudinary.api.resources(tags = True,
                                         max_results = 500)
 
@@ -121,5 +117,6 @@ def show_all_images():
 
 ########################## RUN IT ###########################
 if __name__ == '__main__':
-    connect_to_db(app)
-    app.run(debug=True, host='0.0.0.0')
+    import seed
+    seed.populate_database(app)
+    app.run(debug=False, host='0.0.0.0')

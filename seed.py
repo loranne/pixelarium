@@ -7,7 +7,7 @@ import os
 
 import crud
 from model import connect_to_db, db, Image, ImageTag, Tag
-import server
+# import server
 import json
 import cloudinary.api
 import os
@@ -15,12 +15,12 @@ import utilities
 
 # always drop then create
 # starts up database from scratch
-os.system('dropdb pixelarium')
-os.system('createdb pixelarium')
+# os.system('dropdb pixelarium')
+# os.system('createdb pixelarium')
 
 # connect to the database and set up models with db.create_all
-connect_to_db(server.app)
-db.create_all()
+# connect_to_db(server.app)
+# db.create_all()
 
 
 ######################### API CALLS ############################
@@ -30,14 +30,12 @@ def get_images_data():
 
     url = "https://API_KEY:SECRET_API_KEY@api.cloudinary.com/v1_1/pixelarium/resources/image"
 
-    # response = requests.get(url, params=payload)
     images_dict = cloudinary.api.resources(tags=True,
                                         max_results=500,
                                         metadata=True)
 
-    # do not need to dictionary-ify it because it already behaves like a python dict
-
     return images_dict
+
 
 ################### CREATE RECORDS ###########################
 
@@ -86,8 +84,18 @@ def create_tags_and_relationships(dict):
                 db.session.add(new_img_tag)
                 db.session.commit() 
 
-################### CALLING FUNCTIONS #########################
-# call functions to create data
-images_dict = get_images_data()
-create_images(images_dict)
-create_tags_and_relationships(images_dict)
+################### CALL IN SERVER #########################
+
+def populate_database(app):
+    """Function to call when running server.py"""
+
+    os.system('dropdb pixelarium')
+    os.system('createdb pixelarium')
+
+    connect_to_db(app)
+    db.create_all()
+
+    images_dict = get_images_data()
+    create_images(images_dict)
+    create_tags_and_relationships(images_dict)
+
