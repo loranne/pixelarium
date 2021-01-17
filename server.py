@@ -107,7 +107,7 @@ def show_all_images():
 utilities.log_color("Runit happened!")
 import seed
 seed.populate_database(app)
-app.run(debug=False, host='0.0.0.0')
+# app.run(debug=False, host='0.0.0.0')
 
 
 ########################## RUN IT ###########################
