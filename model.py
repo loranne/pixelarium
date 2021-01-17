@@ -98,7 +98,7 @@ def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 
 
 ########################## TESTING FUNCTIONS ##########################
-def create_image(images_dict):
+def create_images(images_dict):
     """Create image record"""
 
     for image in images_dict["resources"]:

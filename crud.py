@@ -3,6 +3,14 @@
 import utilities
 from model import connect_to_db, db, Image, Tag, ImageTag
 from fuzzywuzzy import fuzz, process
+
+
+def create_image_from_upload(title, link):
+    """Create new image record from scratch"""
+
+    new_image = Image(title=title, link=link)
+    db.session.add(new_image)
+    db.session.commit()
     
 
 def search_images(input_string):

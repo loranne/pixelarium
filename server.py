@@ -6,6 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, Image, Tag, ImageTag
 import os
 import crud
+import seed
 import secrets
 from datetime import datetime
 from jinja2 import StrictUndefined
@@ -37,9 +38,34 @@ def homepage():
     return render_template("homepage.html")
 
 
-@app.route("/upload")
-def upload_img():
+@app.route("/upload", methods=["GET", "POST"])
+def upload_page():
     """User can upload images"""
+
+    if request.method == "POST":
+        img_url = request.form.get("upload_result[secure_url]")
+        img_title = request.form.get("upload_result[public_id]")
+        img_tags = request.form.getlist("upload_result[tags][]")
+        
+        crud.create_image_from_upload(img_title, img_url)
+
+        current_img = Image.query.filter_by(title=img_title).first()
+
+        for tag in img_tags:
+            current_tag = Tag.query.filter_by(text=tag).first()
+
+            if current_tag is None:
+                new_tag = Tag(text=tag)
+                db.session.add(new_tag)
+                db.session.commit()
+
+            added_tag = Tag.query.filter_by(text=tag).first()
+
+            new_img_tag = ImageTag(img_id=current_img.img_id, tag_id=added_tag.tag_id)
+            db.session.add(new_img_tag)
+            db.session.commit()
+
+        # return render_template("upload.html")
 
     return render_template("upload.html")
 
@@ -47,11 +73,17 @@ def upload_img():
 @app.route("/results", methods=["POST"])
 def search_results():
     """Search results"""
+
+    # images_dict = seed.get_images_data()
+
+    # seed.create_tags_and_relationships(images_dict)
+
     search_terms = request.form.get("search")
 
     search_results = crud.search_images(search_terms)
 
     return render_template("results.html", search_results=search_results, search_terms=search_terms)
+
 
 @app.route("/images_test")
 def show_all_images():
