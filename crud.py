@@ -12,32 +12,12 @@ def create_image_from_upload(title, link):
     db.session.add(new_image)
     db.session.commit()
 
-# below function didn't work
-# def add_tags_from_upload(img_url, img_title, img_tags):
-#     """Adds new tags and image_tag relationships to DB from new upload"""
-
-#     current_img = Image.query.filter_by(title=img_title).first()
-
-#     for tag in img_tags:
-#         current_tag = Tag.query.filter_by(text=tag).first()
-
-#         if current_tag is None:
-#             new_tag = Tag(text=tag)
-#             db.session.add(new_tag)
-#             db.session.commit()
-
-#         added_tag = Tag.query.filter_by(text=tag).first()
-
-#         new_img_tag = ImageTag(img_id=current_img.img_id, tag_id=added_tag.tag_id)
-#         db.session.add(new_img_tag)
-#         db.session.commit()
-    
 
 def search_images(input_string):
     """Takes in user input search string and processes it to be passed into subsequent
     search functions"""
 
-    utilities.print_color(input_string)
+    utilities.log_color(input_string)
 
     # checks for " in search string, indicating user wants exact matches only
     # returns call of exact search function. this happens before calling lower 
@@ -46,30 +26,41 @@ def search_images(input_string):
         search_string = input_string.strip('"')
         return search_exact_match(search_string)
 
-    
+    # if no " in string, remove trailing spaces and make it lowercase
     search_string = input_string.lower().strip()
 
+    # keyword search! tags and titles
+    # split search string into keyword and terms
     if ":" in search_string:
         search_keyword_list = search_string.split(":")
+        
         keyword = search_keyword_list[0]
-        utilities.print_color(keyword)
+        utilities.log_color(keyword)
+
         terms = search_keyword_list[1].strip()
-        utilities.print_color(terms)
+        utilities.log_color(terms)
     
+        # if the keyword is tag, use tag search        
         if keyword == "tag":
             search_results = tag_search(terms)
             return search_results
         
+        # if the keyword is title, use title search
         elif keyword == "title":
             search_results = title_search(terms)
             return search_results
         
+        # if the keyword is blank or something other than tag or title
+        # search both. no fuzzy matching
         else:
             tag_results = tag_search(terms)
             title_results = title_search(terms)
             search_results = tag_results | title_results
             return search_results
 
+    # here's fuzzy matching, if no keyword, and not exact string. better for
+    # longer search strings. 
+    # TODO: later, adjust so fuzzy matching only applies if there's a space in terms
     else:
         tag_results = fuzzy_tag_search(search_string)
         title_results = fuzzy_title_search(search_string)
@@ -104,6 +95,7 @@ def title_search(input_string):
     """Takes in user input search string and returns set of images that match
     works a lot like tag_search"""
 
+    # very similar to tag search, but on a separate table
     search_string = f"%{input_string}%"
 
     title_search_results = []
@@ -122,6 +114,7 @@ def fuzzy_tag_search(input_string):
 
     all_tags = []
 
+    # start by getting a list of all the tags for comparison with search string
     for tag in Tag.query.all():
         all_tags.append(tag.text)
 
@@ -130,8 +123,9 @@ def fuzzy_tag_search(input_string):
     # returns list of tuples containing highest Levenshtein dist values
     compare_input_tags = process.extract(input_string, all_tags, limit=20)
 
-    # if the WRatio values are above a certain threshold (84), add the tag to the list of 
-    # valid tags for search results
+    # if the WRatio values are above a certain threshold (84), add the tag to 
+    # the list of valid tags for search results
+    # chose 84 because "cat" and "cats" have a WRatio of 86
     for result in compare_input_tags:
         if result[1] >= 85:
             # now we have a list of strings which are tag text values

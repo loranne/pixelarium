@@ -1,7 +1,7 @@
 from termcolor import *
 from colorama import *
 
-def print_color(input):
+def log_color(input):
     """Makes print statements red"""
 
     print(colored(input, "red"))

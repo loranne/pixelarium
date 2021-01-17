@@ -9,8 +9,7 @@ import crud
 import secrets
 from datetime import datetime
 from jinja2 import StrictUndefined
-
-# has my colorizer function (print_color)
+# has my colorizer function (log_color)
 import utilities
 import cloudinary.api
 
@@ -29,10 +28,12 @@ cloudinary.config(
   api_secret=SECRET_API_KEY
 )
 
+############################ VIEW FUNCTIONS ########################
+
 @app.route("/", methods=["GET", "POST"])
 def homepage():
     """View homepage"""
-    utilities.print_color("Homepage is go!")
+    utilities.log_color("Homepage is go!")
 
     return render_template("homepage.html")
 
@@ -41,15 +42,14 @@ def homepage():
 def upload_page():
     """User can upload images"""
 
+    # gets data from upload widget log
     if request.method == "POST":
+        # needed to create new records in db
         img_url = request.form.get("upload_result[secure_url]")
         img_title = request.form.get("upload_result[public_id]")
         img_tags = request.form.getlist("upload_result[tags][]")
         
         crud.create_image_from_upload(img_title, img_url)
-
-        # crud.add_tags_from_upload(img_url, img_title, img_tags)
-        # never got the above function working properly
 
         current_img = Image.query.filter_by(title=img_title).first()
 
@@ -74,25 +74,14 @@ def upload_page():
 def search_results():
     """Search results"""
 
-    # images_dict = seed.get_images_data()
-
-    # seed.create_tags_and_relationships(images_dict)
-
+    # takes in user input search string
     search_terms = request.form.get("search")
 
+    # calls search function
     search_results = crud.search_images(search_terms)
 
-    return render_template("results.html", search_results=search_results, search_terms=search_terms)
-
-
-@app.route("/images_test")
-def show_all_image_data():
-    """"Shows all images dict data"""
-
-    response = cloudinary.api.resources(tags = True,
-                                        max_results = 500)
-
-    return response
+    return render_template("results.html", search_results=search_results, 
+                            search_terms=search_terms)
 
 
 @app.route("/tag/<tag_id>")
