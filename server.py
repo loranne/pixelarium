@@ -12,6 +12,7 @@ from jinja2 import StrictUndefined
 # has my colorizer function (log_color)
 import utilities
 import cloudinary.api
+import sys
 
 app = Flask(__name__)
 app.secret_key = "FLASK_SECRET_KEY"
@@ -116,4 +117,4 @@ if __name__ == '__main__':
     utilities.log_color("Runit happened!")
     import seed
     seed.populate_database(app)
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0', port=sys.argv[1])

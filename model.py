@@ -84,8 +84,10 @@ class ImageTag(db.Model):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
 
-def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
+def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
+
+    db_uri = os.environ.get("DATABASE_URL")
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
