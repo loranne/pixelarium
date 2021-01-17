@@ -1,0 +1,21 @@
+<!-- page displays all images for a given tag -->
+{% extends 'base.html' %}
+{% block title %}Pixelarium - Tag - {{ tag.text }}{% endblock %}
+
+{% block head %}
+<style>
+    .pics {
+        margin: 0px 0px 5px 0px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<h1>View tag - "{{ tag.text }}"</h1>
+
+<div class="results">
+    {% for image in images %}
+        <div class="pics"><img src="{{ image.link }}" alt="Responsive image" width=50%></li></div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

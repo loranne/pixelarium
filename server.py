@@ -86,7 +86,7 @@ def search_results():
 
 
 @app.route("/images_test")
-def show_all_images():
+def show_all_image_data():
     """"Shows all images from my account"""
     print(f"\n {API_KEY} \n?")
 
@@ -99,7 +99,24 @@ def show_all_images():
     return response
 
 
+@app.route("/tag/<tag_id>")
+def show_images_by_tag(tag_id):
+    """Shows all images associated with a given tag"""
 
+    tag = Tag.query.filter_by(tag_id=tag_id).one()
+
+    images = tag.images
+
+    return render_template("tag.html", images=images, tag=tag)
+
+
+@app.route("/browse")
+def show_all_images():
+    """Shows all images and their tags"""
+
+    images = Image.query.all()
+
+    return render_template("browse.html", images=images)
 
 
 ########################## RUN IT ###########################

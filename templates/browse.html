@@ -1,0 +1,28 @@
+<!-- page displays all images for a given tag -->
+{% extends 'base.html' %}
+{% block title %}Pixelarium - Browse all{% endblock %}
+
+{% block head %}
+<style>
+    .pics {
+        margin: 0px 0px 5px 0px;
+    }
+    .tags {
+        display: inline-block;
+        margin: 0px 0px 20px 0px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<h1>Browse all</h1>
+
+<div class="results">
+    {% for image in images %}
+        <div class="pics"><img src="{{ image.link }}" alt="Responsive image" width=50%></li></div>
+        </div>
+        <div class="tags">{% for tag in image.tags %}
+            <a href="/tag/{{ tag.tag_id }}">{{ tag.text }}</a> | 
+        {% endfor %}</div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}Pixelarium - Search results{% endblock %}
 
+{% block head %}
+<style>
+    .pics {
+        margin: 0px 0px 5px 0px;
+    }
+    .tags {
+        display: inline-block;
+        margin: 0px 0px 20px 0px;
+    }
+</style>
+{% endblock %}
 {% block body %}
 <h1>Your search - "{{ search_terms }}"</h1>
 
@@ -10,12 +21,10 @@
     {% else %}
         <p><a href="/">New search?</a></p>
         {% for image in search_results %}
-        <ul>
-            <li><img src="{{ image.link }}" alt="Responsive image" width=50%></li>
-            {% for tag in image.tags %}
-                {{ tag.text }},
-            {% endfor %}
-        </ul>
+            <div class="pics"><img src="{{ image.link }}" alt="Responsive image" width=50%></li></div>
+            <div class="tags">{% for tag in image.tags %}
+                <a href="/tag/{{ tag.tag_id }}">{{ tag.text }}</a> | 
+            {% endfor %}</div>
         {% endfor %}
     {% endif %}
 </div>
