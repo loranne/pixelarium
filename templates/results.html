@@ -21,7 +21,7 @@
     {% else %}
         <p><a href="/">New search?</a></p>
         {% for image in search_results %}
-            <div class="pics"><img src="{{ image.link }}" alt="Responsive image" width=50%></li></div>
+            <div class="pics"><img src="{{ image.link }}" alt="Responsive image" width=40%></li></div>
             <div class="tags">{% for tag in image.tags %}
                 <a href="/tag/{{ tag.tag_id }}">{{ tag.text }}</a> | 
             {% endfor %}</div>

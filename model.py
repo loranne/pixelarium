@@ -83,7 +83,8 @@ class ImageTag(db.Model):
     def __repr__(self):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
-
+# uncomment 87, comment out 88 and 91 to run locally
+# def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
 
@@ -99,16 +100,8 @@ def connect_to_db(flask_app, echo=True):
     print('Connected to the db!')
 
 
-########################## TESTING FUNCTIONS ##########################
-# def create_images(images_dict):
-#     """Create image record"""
+########################## RUNNING FUNCTIONS ##########################
 
-#     for image in images_dict["resources"]:
-#         new_img = Image(link=image["secure_url"], title=image["public_id"])
-#         db.session.add(new_img)
-#         db.session.commit() 
-
-# for running model interactively and testing db
 if __name__ == '__main__':
     from server import app
     # pulls in seed data
