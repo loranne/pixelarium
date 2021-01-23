@@ -110,4 +110,8 @@ This was my first ever real experience playing with natural language processing,
 - Add login/user auth
 - How to speed up db?
 
+### TODO
+
+- Fix exact match no results issue (currently causes internal server error)
+
 
