@@ -1,8 +1,12 @@
-# Pixelarium - an image repo experiment for Shopify
+# Pixelarium - an image repo experiment
 
 ## [Use Pixelarium here](https://pixelarium.herokuapp.com>)
 
 [https://pixelarium.herokuapp.com/](https://pixelarium.herokuapp.com/)
+
+## Why I made this
+
+I made Pixelarium as part of job application, and also as a way to experiment with fuzzy text string search (via image tags).
 
 ## Instructions
 
