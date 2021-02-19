@@ -25,6 +25,10 @@ You can also search the library of pictures I've alread uploaded, all of which a
 
 The home page features a search bar along with some search tips, and a menu to navigate to a couple other pages: Browse shows you all photos, and most pages that show photos also have the tags for each photo listed, which are clickable links that allow you to view all photos that have that particular tag.
 
+## Tags I used (alphetized, comma separated, **bold** for frequently used tags)
+
+2012, 2013, air boat, apollo 11, art, artifacts, ash, b&w, **barcelona**, beach, big water, birds, blue, books, casa batllo, **cats**, chandelier, cherry blossoms, chicago, chickadee, chihuly, city, dandelion, dogs, dongdaemun design plaza, driftwood, dublin, ducks, edit, escalator, facepaint, fall 2005, fall 2008, fall 2011, fall 2012, fall 2017, family, fashion, film, fireworks, flower, **flowers**, gaudi, glass, gondoliers, gyeongbokgung palace, hats, highway, holiday, home, hydrangea, i'm on a boat, iron fence, it's all happening at the zoo, **italy**, ivy, ladder, **landscape**, lavender-cotton, leaves, lenore, libraries, light, lighting, lisa frankenstein, los angeles, lummi island, macro, maine, makeup, mirrors, momo, museum, nasa, **nature**, new orleans, new york, niblings, northern magnolia, nyc, old books, orcas island, outside space, palm trees, **pets**, **plants**, portland, portrait, prisma, sad cat diary, scav, seattle, see you later alligator, **seoul**, **sky**, snakes, snow, south korea, sparrows, spring 2019, summer 2010, summer 2013, summer 2014, summer 2018, summer 2019, **sunset**, swamp, texture, the great indoors, the great outdoors, **travel**, **trees**, trinity library, venice, where you hang your hat, **wildlife**, winter 2013, winter 2014, wooden fence, woodland park zoo, yellow anaconda 
+
 # Installation
 
 To install and run Pixelarium on your local machine:
