@@ -113,5 +113,5 @@ if __name__ == '__main__':
     seed.populate_database(app)
 
     # comment out 116, uncomment 117 to run locally
-    app.run(debug=False, host='0.0.0.0', port=sys.argv[1])
-    # app.run(debug=False, host='0.0.0.0')
+    # app.run(debug=False, host='0.0.0.0', port=sys.argv[1])
+    app.run(debug=False, host='0.0.0.0')

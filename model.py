@@ -84,11 +84,11 @@ class ImageTag(db.Model):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
 # uncomment 87, comment out 88 and 91 to run locally
-# def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
-def connect_to_db(flask_app, echo=True):
+def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
+# def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
 
-    db_uri = os.environ.get("DATABASE_URL")
+    # db_uri = os.environ.get("DATABASE_URL")
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
@@ -98,6 +98,33 @@ def connect_to_db(flask_app, echo=True):
     db.init_app(flask_app)
 
     print('Connected to the db!')
+
+def sample_data():
+    """Create example data for testing purposes"""
+
+    img1 = Image(img_id=1, link="", title="Sample Image - Cats")
+    img2 = Image(img_id=2, link="", title="Sample Image - Landscape")
+    img3 = Image(img_id=3, link="", title="Sample Image - Travel")
+    
+    tag1 = Tag(tag_id=1, text="pets")
+    tag2 = Tag(tag_id=2, text="cats")
+    tag3 = Tag(tag_id=3, text="landscape")
+    tag4 = Tag(tag_id=4, text="travel")
+    tag5 = Tag(tag_id=5, text="italy")
+    tag6 = Tag(tag_id=6, text="great outdoors")
+    
+    img_tag1 = ImageTag(img_id=1, tag_id=1)
+    img_tag2 = ImageTag(img_id=1, tag_id=2)
+    img_tag3 = ImageTag(img_id=2, tag_id=3)
+    img_tag4 = ImageTag(img_id=2, tag_id=6)
+    img_tag5 = ImageTag(img_id=2, tag_id=4)
+    img_tag6 = ImageTag(img_id=3, tag_id=4)
+    img_tag7 = ImageTag(img_id=3, tag_id=5)
+
+    db.session.add_all(img1, img2, img3, tag1, tag2, tag3, tag4, tag5, tag6,
+        img_tag1, img_tag2, img_tag3, img_tag4, img_tag5, img_tag6, img_tag7)
+    db.sessioncommit()
+
 
 
 ########################## RUNNING FUNCTIONS ##########################

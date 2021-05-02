@@ -119,3 +119,9 @@ This was my first ever real experience playing with natural language processing,
 - pytest
 - docker
 - search by color?
+
+### Tests I need to include
+
+- validate user search strings?
+- validate database
+- validate route functions
