@@ -113,3 +113,9 @@ This was my first ever real experience playing with natural language processing,
 
 - Push updates to heroku
 - Browse all is repeating pictures. Find out why and make it stop!
+
+## To do list
+
+- pytest
+- docker
+- search by color?
