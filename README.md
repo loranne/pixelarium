@@ -119,6 +119,7 @@ This was my first ever real experience playing with natural language processing,
 - pytest
 - docker
 - search by color?
+- add example data to model.py
 
 ### Tests I need to include
 
