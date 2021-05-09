@@ -85,6 +85,9 @@ def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
 
     db_uri = os.environ.get("HEROKU_POSTGRESQL_PUCE_URL")
+
+    if db_uri.startswith("postgres://"):
+        db_uri = db_uri.replace("postgres://", "postgresql://")
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
