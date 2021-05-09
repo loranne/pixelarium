@@ -1,1 +1,1 @@
-web: python server.py $PORT
+web: python -m pixelarium.server $PORT
