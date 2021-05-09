@@ -9,9 +9,9 @@ import cloudinary.api
 import os
 import json
 
-# uncomment lines below to run interactively
-# API_KEY = os.environ.get("API_KEY")
-# SECRET_API_KEY = os.environ.get("SECRET_API_KEY")
+# uncomment lines below for heroku
+API_KEY = os.environ.get("API_KEY")
+SECRET_API_KEY = os.environ.get("SECRET_API_KEY")
 
 cloudinary.config(
   cloud_name="pixelarium",
