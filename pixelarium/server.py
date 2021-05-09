@@ -16,7 +16,7 @@ import sys
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
-app.debug = True
+app.debug = False
 toolbar = DebugToolbarExtension(app)
 app.jinja_env.undefined = StrictUndefined
 

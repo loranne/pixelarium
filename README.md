@@ -124,3 +124,5 @@ This was my first ever real experience playing with natural language processing,
 - validate user search strings?
 - validate database
 - validate route functions
+- validate search queries
+    - make sure they're in the db tests

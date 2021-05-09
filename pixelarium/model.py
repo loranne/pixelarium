@@ -35,10 +35,6 @@ class Image(db.Model):
                         nullable=False)
     title = db.Column(db.String(50),
                         nullable=False)
-    # TODO: how are we getting the info into this? Is this the right data type?
-    # will find out
-    histogram = db.Column(db.String,
-                        nullable=True)
 
     # sets up many-to-many relationship with tags
     tags = db.relationship("Tag", secondary="image_tags")
@@ -121,9 +117,24 @@ def sample_data():
     img_tag6 = ImageTag(img_id=3, tag_id=4)
     img_tag7 = ImageTag(img_id=3, tag_id=5)
 
-    db.session.add_all(img1, img2, img3, tag1, tag2, tag3, tag4, tag5, tag6,
-        img_tag1, img_tag2, img_tag3, img_tag4, img_tag5, img_tag6, img_tag7)
-    db.sessioncommit()
+    db.session.add(img1)
+    db.session.add(img2) 
+    db.session.add(img3) 
+    db.session.add(tag1)
+    db.session.add(tag2) 
+    db.session.add(tag3) 
+    db.session.add(tag4) 
+    db.session.add(tag5) 
+    db.session.add(tag6)
+    db.session.add(img_tag1) 
+    db.session.add(img_tag2) 
+    db.session.add(img_tag3) 
+    db.session.add(img_tag4) 
+    db.session.add(img_tag5) 
+    db.session.add(img_tag6) 
+    db.session.add(img_tag7)
+
+    db.session.commit()
 
 
 
