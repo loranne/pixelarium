@@ -79,16 +79,16 @@ class ImageTag(db.Model):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
 
-# commment out 87, uncomment 88 and 91 for heroku
-def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
-# def connect_to_db(flask_app, echo=True):
+# commment out 84 and 87, uncomment 83 for local
+# def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
+def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
 
-    # db_uri = os.environ.get("DATABASE_URL")
+    db_uri = os.environ.get("DATABASE_URL")
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
-    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    flask   _app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.app = flask_app
     db.init_app(flask_app)
