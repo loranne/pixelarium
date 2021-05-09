@@ -1,5 +1,4 @@
-# Models for image repo for shopify internship application
-# pixelarium
+# Models for image repo for image repo experiment - pixelarium
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,9 +9,9 @@ import cloudinary.api
 import os
 import json
 
-# copied from server for testing only
-API_KEY = os.environ.get("API_KEY")
-SECRET_API_KEY = os.environ.get("SECRET_API_KEY")
+# uncomment lines below to run interactively
+# API_KEY = os.environ.get("API_KEY")
+# SECRET_API_KEY = os.environ.get("SECRET_API_KEY")
 
 cloudinary.config(
   cloud_name="pixelarium",
@@ -20,8 +19,8 @@ cloudinary.config(
   api_secret=SECRET_API_KEY
 )
 
-
 db = SQLAlchemy()
+
 
 class Image(db.Model):
     """An image"""
@@ -79,7 +78,8 @@ class ImageTag(db.Model):
     def __repr__(self):
         return f"<ImageTag id={self.img_tag_id} img_id={self.img_id} tag_id={self.tag_id}>"
         
-# uncomment 87, comment out 88 and 91 to run locally
+
+# commment out 87, uncomment 88 and 91 for heroku
 def connect_to_db(flask_app, db_uri="postgresql:///pixelarium", echo=True):
 # def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     # too annoying; this will tell SQLAlchemy not to print out every
     # query it executes.
 
-    # comment out later
+    # uncomment to test interactively
     # os.system('dropdb pixelarium')
     # os.system('createdb pixelarium')
 

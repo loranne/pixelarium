@@ -1,11 +1,11 @@
+# tests for pixelarium app
+
 import unittest
 import os
-# from pixelarium import server
-# from pixelarium import model
-# # import server as server
 from pixelarium.server import app
 from pixelarium.seed import populate_database
 from pixelarium.model import db, connect_to_db, sample_data, Image, Tag, ImageTag
+
 
 class PixelariumStaticTests(unittest.TestCase):
     """Tests for Pixelarium image repository"""
@@ -85,33 +85,6 @@ class PixelariumDatabaseTests(unittest.TestCase):
     def tearDown(self):
         """Drop all tables in pixtestdb, which gets torn down and recreated during setUp"""
         db.drop_all()
-
-
-# class PixelariumQueryTests(unittest.TestCase):
-#     """Tests for search queries and fuzzy string matching"""
-
-#     def setUp(self):
-#         """Initialize the pixtestdb and populate with data"""
-        
-#         self.client = app.test_client()
-#         app.config["TESTING"] = True
-
-#         os.system("dropdb pixpixtestdb")
-#         os.system("createdb pixpixtestdb")
-
-#         # Connect to test database (uncomment when testing database)
-#         connect_to_db(app, "postgresql:///pixtestdb")
-
-#         # Create tables and add sample data (uncomment when testing database)
-#         db.create_all()
-#         sample_data()
-
-    
-
-
-    # def tearDown(self):
-    #     """Drop all tables in pixtestdb, which gets torn down and recreated during setUp"""
-    #     db.drop_all()
 
 
 if __name__ == "__main__":
