@@ -5,13 +5,13 @@ import os
 # from random import choice, randint
 # from datetime import datetime
 
-import crud
-from model import connect_to_db, db, Image, ImageTag, Tag
+from . import crud
+from .model import connect_to_db, db, Image, ImageTag, Tag
 # import server
 import json
 import cloudinary.api
 import os
-import utilities
+from . import utilities
 
 # always drop then create
 # starts up database from scratch

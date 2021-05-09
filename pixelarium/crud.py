@@ -1,7 +1,7 @@
 # CRUD functions for pixelarium
 
-import utilities
-from model import connect_to_db, db, Image, Tag, ImageTag
+from . import utilities
+from .model import connect_to_db, db, Image, Tag, ImageTag
 from fuzzywuzzy import fuzz, process
 
 

@@ -3,20 +3,20 @@
 from flask import (Flask, render_template, request, flash, session,
                    redirect, url_for, jsonify)
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, Image, Tag, ImageTag
+from .model import connect_to_db, db, Image, Tag, ImageTag
 import os
-import crud
+from . import crud
 import secrets
 from datetime import datetime
 from jinja2 import StrictUndefined
 # has my colorizer function (log_color)
-import utilities
+from . import utilities
 import cloudinary.api
 import sys
 
 app = Flask(__name__)
-app.secret_key = "FLASK_SECRET_KEY"
-app.debug = False
+app.secret_key = os.urandom(16)
+app.debug = True
 toolbar = DebugToolbarExtension(app)
 app.jinja_env.undefined = StrictUndefined
 
