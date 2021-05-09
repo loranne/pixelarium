@@ -185,4 +185,4 @@ def search_exact_match(input_string):
     for image in exact_title_matches:
         search_results.append(image)
 
-    return set(exact_search_results)
+    return set(search_results)

@@ -109,7 +109,7 @@ def show_all_images():
 # uncomment below for running locally
 if __name__ == '__main__':
     utilities.log_color("Runit happened!")
-    import seed
+    from . import seed
     seed.populate_database(app)
 
     # comment out 116, uncomment 117 to run locally
