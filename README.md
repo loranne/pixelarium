@@ -1,8 +1,6 @@
 # Pixelarium - an image repo experiment
 
-## [Use Pixelarium here](https://pixelarium.herokuapp.com>)
-
-[https://pixelarium.herokuapp.com/](https://pixelarium.herokuapp.com/)
+Pixelarium is not currently deployed. I'm working on containerizing it with Docker.
 
 ## Why I made this
 

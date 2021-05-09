@@ -11,10 +11,17 @@ class PixelariumTests(unittest.TestCase):
         app.config["TESTING"] = True
     
     def test_homepage(self):
-        result = self.client.get("/")
+        result = self.client.get("/results")
         self.assertIn(b"Welcome to Pixelarium", result.data)
     
     def test_search(self):
-        result = self.client.get("/")
+        result = self.client.post("/")
         self.assertIn(b"your search", result.data)
         self.assertNotIn(b"Welcome")
+
+    def test_no_results(self):
+        result = self.client.get("/")
+
+
+if __name__ == "__main__":
+    unittest.main()
