@@ -23,7 +23,7 @@ I made Pixelarium as part of job application, and also as a way to experiment wi
 
 Pixelarium lets you upload pictures and perform text searches for the "tag" and "title" fields of each image. It was designed with photos in mind, because I'm an amateur photographer. 
 
-You can also search the library of pictures I've alread uploaded, all of which are pictures I've taken personally.
+You can also search the library of pictures I've alread uploaded, all of which are photos I've taken personally.
 
 The home page features a search bar along with some search tips, and a menu to navigate to a couple other pages: Browse shows you all photos, and most pages that show photos also have the tags for each photo listed, which are clickable links that allow you to view all photos that have that particular tag.
 
@@ -31,18 +31,6 @@ The home page features a search bar along with some search tips, and a menu to n
 
 2012, 2013, air boat, apollo 11, art, artifacts, ash, b&w, **barcelona**, beach, big water, birds, blue, books, casa batllo, **cats**, chandelier, cherry blossoms, chicago, chickadee, chihuly, city, dandelion, dogs, dongdaemun design plaza, driftwood, dublin, ducks, edit, escalator, facepaint, fall 2005, fall 2008, fall 2011, fall 2012, fall 2017, family, fashion, film, fireworks, flower, **flowers**, gaudi, glass, gondoliers, gyeongbokgung palace, hats, highway, holiday, home, hydrangea, i'm on a boat, iron fence, it's all happening at the zoo, **italy**, ivy, ladder, **landscape**, lavender-cotton, leaves, lenore, libraries, light, lighting, lisa frankenstein, los angeles, lummi island, macro, maine, makeup, mirrors, momo, museum, nasa, **nature**, new orleans, new york, niblings, northern magnolia, nyc, old books, orcas island, outside space, palm trees, **pets**, **plants**, portland, portrait, prisma, sad cat diary, scav, seattle, see you later alligator, **seoul**, **sky**, snakes, snow, south korea, sparrows, spring 2019, summer 2010, summer 2013, summer 2014, summer 2018, summer 2019, **sunset**, swamp, texture, the great indoors, the great outdoors, **travel**, **trees**, trinity library, venice, where you hang your hat, **wildlife**, winter 2013, winter 2014, wooden fence, woodland park zoo, yellow anaconda 
 
-# Installation
-
-To install and run Pixelarium on your local machine:
-- Contact me for Cloudinary API keys or create your own [cloudinary](https://cloudinary.com/) account
-- Store API keys in secrets.sh as env variables and run secrets.sh
-- Install PostgreSQL
-- pip install from requirements.txt
-- Modify model.py: comment out lines 88 and 91
-- Modify model.py: uncomment line 87
-- Modify server.py: comment out line 116
-- Modify server.py: uncomment line 117
-- run server.py to launch server locally
 
 # Under the Hood
 
@@ -67,6 +55,8 @@ I knew that getting to that level of image search would involve a level of famil
 
 I knew that I could do direct matching of text-based search pretty easily, and it was a core function in my mind, so I started there. That ended up taking my full attention and energy, and I learned a lot in the process!
 
+I also spent time adding integration tests, using the unittest framework. These tests ensure that my web app is returning the expected search results, and status codes. 
+
 ## Thoughts on technologies and structure
 
 Because I wanted to focus on learning about search, I used a structure that was familiar to me: a Flask server backend which would render HTML and Jinja templates on the front end, and a PostgreSQL database to query against for my searches. Yes, there are some image search APIs out there, but that would have, in my mind, defeated the purpose of learning how to implement search from the ground up. 
@@ -77,16 +67,6 @@ The db gets seeded by a seed.py file when the app is initially launched. DB is u
 
 Python is my most comfortable programming language, and I've gotten familiar with Flask-SQLAlchemy in another project, so those were obvious choices for me to speed this project along.
 
-This is my first time deploying an app to Heroku, and that was a fun learning experience, as well.
-
-## Upload image
-
- - Using Cloudinary upload widget
- - Can upload 1 or more images at a time
- - I used the widget rather than upload API because the adding of images wasn't the interesting part for me (that's search).
- - Widget returns an object with data about the photo(s) just uploaded
- - I added a short script to pass that data over to my Flask server
- - Cloudinary's upload leaves a lot to be desired, but using it helped me get to search.
 
  ## Image search - tags and title
 
@@ -109,20 +89,8 @@ This was my first ever real experience playing with natural language processing,
 
 ### To fix
 
-- Push updates to heroku
-- Browse all is repeating pictures. Find out why and make it stop!
 
 ## To do list
 
-- pytest
-- docker
-- search by color?
-- add example data to model.py
-
-### Tests I need to include
-
-- validate user search strings?
-- validate database
-- validate route functions
-- validate search queries
-    - make sure they're in the db tests
+- Containerize with docker
+- Search by color
