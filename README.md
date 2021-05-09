@@ -1,6 +1,8 @@
 # Pixelarium - an image repo experiment
 
-Pixelarium is not currently deployed. I'm working on containerizing it with Docker.
+The Pixelarium web app is currently deployed on heroku.
+
+[Use Pixelarium here](https://pixelarium.herokuapp.com/)
 
 ## Why I made this
 
@@ -67,7 +69,6 @@ The db gets seeded by a seed.py file when the app is initially launched. DB is u
 
 Python is my most comfortable programming language, and I've gotten familiar with Flask-SQLAlchemy in another project, so those were obvious choices for me to speed this project along.
 
-
  ## Image search - tags and title
 
 This was my first ever real experience playing with natural language processing, though I've thought about the constraints of search a lot. In a previous job, I worked for a website while the dev team was in the process of adding Elasticsearch to the site, and I did extensive search testing to see if certain features were working as intended.
@@ -88,7 +89,6 @@ This was my first ever real experience playing with natural language processing,
 - K-means could also be useful here. 
 
 ### To fix
-
 
 ## To do list
 
