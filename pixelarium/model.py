@@ -84,7 +84,7 @@ class ImageTag(db.Model):
 def connect_to_db(flask_app, echo=True):
     """Connect to the DB"""
 
-    db_uri = os.environ.get("DATABASE_URL")
+    db_uri = os.environ.get("HEROKU_POSTGRESQL_PUCE_URL")
     
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     flask_app.config["SQLALCHEMY_ECHO"] = echo
