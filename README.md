@@ -2,7 +2,7 @@
 
 The Pixelarium web app is currently deployed on heroku.
 
-[Use Pixelarium here](https://pixelarium.herokuapp.com/)
+## [Use Pixelarium here](https://pixelarium.herokuapp.com/)
 
 ## Why I made this
 
