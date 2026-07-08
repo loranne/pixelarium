@@ -1,8 +1,6 @@
 # Pixelarium - an image repo experiment
 
-The Pixelarium web app is currently deployed on heroku.
-
-## [Use Pixelarium here](https://pixelarium.herokuapp.com/)
+The Pixelarium web app is not currently deployed. It was deployed on heroku in 2021. 
 
 ## Why I made this
 
